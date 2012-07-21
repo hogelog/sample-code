@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string>
-void execute(std::string& code) {
+int main() {
+  std::string code;
+  for (int ch;(ch=getchar())!=EOF;)
+    code.push_back(ch);
   static int membuf[30000];
   int *mem = membuf;
   int depth = 0;
@@ -15,29 +18,21 @@ void execute(std::string& code) {
       case '[':
         if (*mem == 0) {
           depth = 1;
-          while (depth != 0)
+          while (depth != 0) {
             switch(code[++pc]) {
               case '[': ++depth; break;
               case ']': --depth; break;
-            }
-        }
+            }}}
         break;
       case ']':
         depth = -1;
-        while (depth != 0)
+        while (depth != 0) {
           switch(code[--pc]) {
             case '[': ++depth; break;
             case ']': --depth; break;
-          }
+          }}
         --pc;
         break;
-    }
-  }
-}
-int main() {
-  std::string code;
-  for (int ch;(ch=getchar())!=EOF;)
-    code.push_back(ch);
-  execute(code);
+    }}
   return 0;
 }
